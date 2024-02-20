@@ -10,21 +10,21 @@ from uuid import uuid4
 class MarketSnapshot:
     id: str
     traders: list[Trader]
-    timestamp: int
+    date: str
     avg_price: float
     screenshot: str
 
     def __init__(self,
                  id: str,
                  traders: list[Trader],
-                 timestamp: int,
+                 date: str,
                  avg_price: float,
                  screenshot: str
                  ) -> None:
 
         self.id = id
         self.traders = traders
-        self.timestamp = timestamp
+        self.date = date
         self.avg_price = avg_price
         self.screenshot = screenshot
 
@@ -34,14 +34,14 @@ class MarketSnapshot:
         Expects list of table row elements
         """
         traders = [Trader.from_web(row) for row in rows]
-        timestamp = int(datetime.now().timestamp())
+        date = datetime.now().strftime("%Y-%m-%d")
         avg_price = MarketSnapshot.calc_avg_price(traders)
         screenshot = as_screenshot_path(id)
 
         return MarketSnapshot(
             id=id,
             traders=traders,
-            timestamp=timestamp,
+            date=date,
             avg_price=avg_price,
             screenshot=screenshot
         )
@@ -53,7 +53,7 @@ class MarketSnapshot:
         return MarketSnapshot(
             id=snapshot['id'],
             traders=traders,
-            timestamp=snapshot['timestamp'],
+            date=snapshot['date'],
             avg_price=snapshot['avg_price'],
             screenshot=snapshot['screenshot']
         )
@@ -62,7 +62,7 @@ class MarketSnapshot:
         return {
             'id': self.id,
             'traders': [trader.as_dict() for trader in self.traders],
-            'timestamp': self.timestamp,
+            'date': self.date,
             'avg_price': self.avg_price,
             'screenshot': self.screenshot,
         }

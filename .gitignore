@@ -2,3 +2,4 @@ __pycache__
 screenshots
 data.json
 .env
+*.png
