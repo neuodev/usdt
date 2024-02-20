@@ -37,7 +37,7 @@ class MarketSnapshot:
         timestamp = int(datetime.now().timestamp())
         avg_price = MarketSnapshot.calc_avg_price(traders)
         screenshot = as_screenshot_path(id)
-        
+
         return MarketSnapshot(
             id=id,
             traders=traders,
