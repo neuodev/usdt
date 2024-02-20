@@ -46,9 +46,18 @@ class Trader:
             name=trader.text,
             url=trader.get_attribute('href'),
             price=as_float(price.text),
-            supply=as_float(supply.text),
+            supply=as_float(supply.text.replace('USDT', '').strip()),
             limit=(as_float(upper_limit), as_float(lower_limit))
         )
+
+    def as_dict(self) -> dict:
+        return {
+            'name': self.name,
+            'url': self.url,
+            'price': self.price,
+            'supply': self.supply,
+            'limit': self.limit
+        }
 
     def from_dict(trader: dict) -> 'Trader':
         return Trader(

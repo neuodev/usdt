@@ -24,7 +24,7 @@ class Store:
 
     def save(self, snapshots: list[MarketSnapshot]) -> 'Store':
         with open(self.path, 'w') as f:
-            json.dump(snapshots, f)
+            json.dump([snapshot.as_dict() for snapshot in snapshots], f)
 
         return self
 
