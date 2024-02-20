@@ -14,7 +14,7 @@ store = Store("data.json")
 user_store = UserStore("users.json")
 
 
-@bot.message_handler(commands=['start', 'hello'])
+@bot.message_handler(commands=['start', 'hello', 'add'])
 def send_welcome(message: types.Message):
     user_store.add_unique(message.chat.id)
     bot.reply_to(message, "Welcome to Dinaro!")
@@ -27,15 +27,16 @@ def send_price(message: types.Message):
     bot.send_message(message.chat.id, text, parse_mode="Markdown")
 
 
-@bot.message_handler(commands=['binance'])
-def send_snapshot(message: types.Message):
-    snapshots = store.load()
-    if len(snapshots) == 0:
-        return bot.send_message(message.chat.id, "Currently, there is no data.")
+#! disabled for now
+# @bot.message_handler(commands=['binance'])
+# def send_snapshot(message: types.Message):
+#     snapshots = store.load()
+#     if len(snapshots) == 0:
+#         return bot.send_message(message.chat.id, "Currently, there is no data.")
 
-    snapshot = snapshots[len(snapshots) - 1]
-    bot.send_photo(
-        message.chat.id, InputFile(snapshot.screenshot))
+#     snapshot = snapshots[len(snapshots) - 1]
+#     bot.send_photo(
+#         message.chat.id, InputFile(snapshot.screenshot))
 
 
 @bot.message_handler(commands=['data'])
@@ -100,7 +101,7 @@ def broadcast_prices():
         bot.send_message(user, message, parse_mode="Markdown")
 
 
-k = ThreadJob(broadcast_prices, event, 2)  # 2min
+k = ThreadJob(broadcast_prices, event, 5 * 60)  # 5min
 k.start()
 
 print('Bot started...')
