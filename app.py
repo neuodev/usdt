@@ -73,16 +73,16 @@ def get_limits(tr: WebElement):
 
     return (upper, lower)
 
-def calc_avg_price(traders) -> float: 
+
+def calc_avg_price(traders) -> float:
     return sum([trader['price'] for trader in traders]) / len(traders)
-
-
 
 
 traders = get_traders(elements)
 timestamp = int(datetime.now().timestamp())
 avg_price = calc_avg_price(traders)
-as_json = json.dumps({'traders': traders, 'timestamp': timestamp, 'avg_price': avg_price})
+as_json = json.dumps(
+    {'traders': traders, 'timestamp': timestamp, 'avg_price': avg_price})
 
 
 with open('data.json', 'w') as f:
