@@ -1,5 +1,5 @@
 __pycache__
 screenshots
-data.json
+*.json
 .env
 *.png
