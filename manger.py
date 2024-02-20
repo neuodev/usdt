@@ -28,4 +28,4 @@ class Manger:
             snapshot = MarketSnapshot.from_web(id, rows)
             self.store.append(snapshot)
 
-            sleep(10)
+            sleep(60 * 60) # 1hr

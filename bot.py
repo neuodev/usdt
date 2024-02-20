@@ -12,7 +12,7 @@ store = Store("data.json")
 
 
 @bot.message_handler(commands=['start', 'hello'])
-def send_welcome(message):
+def send_welcome(message: types.Message):
     bot.reply_to(message, "Howdy, how are you doing?")
 
 
@@ -64,8 +64,6 @@ def send_plot(message: types.Message):
         caption="Price Hisotry"
     )
     os.remove(filename)
-
-
 
 print('Bot started...')
 bot.infinity_polling()
