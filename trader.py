@@ -49,3 +49,12 @@ class Trader:
             supply=as_float(supply.text),
             limit=(as_float(upper_limit), as_float(lower_limit))
         )
+
+    def from_dict(trader: dict) -> 'Trader':
+        return Trader(
+            name=trader['name'],
+            url=trader['url'],
+            price=trader['price'],
+            supply=trader['supply'],
+            limit=trader['limit']
+        )
